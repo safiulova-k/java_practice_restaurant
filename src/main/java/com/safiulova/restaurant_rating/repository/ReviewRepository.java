@@ -1,38 +1,19 @@
 package com.safiulova.restaurant_rating.repository;
 
 import com.safiulova.restaurant_rating.entity.Review;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
+import java.util.List;
+
 @Repository
-public class ReviewRepository {
+public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    private final List<Review> reviews = new ArrayList<>();
-
-    public void save(Review review) {
-        reviews.removeIf(r ->
-                r.getVisitorId().equals(review.getVisitorId()) &&
-                        r.getRestaurantId().equals(review.getRestaurantId())
-        );
-        reviews.add(review);
-    }
-
-    public void remove(Review review) {
-        reviews.remove(review);
-    }
-
-    public List<Review> findAll() {
-        return Collections.unmodifiableList(reviews);
-    }
-
-    public Optional<Review> findById(Long visitorId, Long restaurantId) {
-        return reviews.stream()
-                .filter(r -> r.getVisitorId().equals(visitorId)
-                        && r.getRestaurantId().equals(restaurantId))
-                .findFirst();
-    }
+    // найти все отзывы конкретного посетителя
+    List<Review> findByVisitorId(Long visitorId);
+    // найти все отзывы конкретного ресторана
+    List<Review> findByRestaurantId(Long restaurantId);
+    // один отзыв по посетителю и ресторану
+    Optional<Review> findByVisitorIdAndRestaurantId(Long visitorId, Long restaurantId);
 }
