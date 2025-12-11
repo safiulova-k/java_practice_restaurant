@@ -12,7 +12,7 @@ public class RestaurantRatingApplication {
 		ConfigurableApplicationContext context =
 				SpringApplication.run(RestaurantRatingApplication.class, args);
 
-		System.out.println("\nТестирование через context.getBean()"); // это примерчик, всё остальное тестирование сделано через CommandLineRunner
+		System.out.println("\nТестирование через context.getBean()");
 		VisitorService visitorService = context.getBean(VisitorService.class);
 		System.out.println(visitorService.findAll());
 	}
