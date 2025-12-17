@@ -1,18 +1,22 @@
 package com.safiulova.restaurant_rating.entity;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
 
+@Entity
+@Table(name = "visitors")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Visitor {
 
-    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Nullable
@@ -23,5 +27,6 @@ public class Visitor {
     private int age;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 }
